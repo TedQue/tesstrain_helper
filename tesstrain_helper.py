@@ -80,6 +80,7 @@ if __name__ == "__main__":
 	arg_parser.add_argument("output_dir", help=".tif and .gt.txt output directory")
 	arg_parser.add_argument("-n", "--dry-run", help="do not generate output file", action="store_true")
 	arg_parser.add_argument("-s", "--split", help="split image into single characters", action="store_true")
+	arg_parser.add_argument("--version", action="version", version=f'{APP_NAME} v{VERSION}')
 	args = arg_parser.parse_args()
 
 	print(f'Welcome to {APP_NAME} v{VERSION} by Que\'s C++ Studio')
