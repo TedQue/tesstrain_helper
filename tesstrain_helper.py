@@ -76,24 +76,19 @@ if __name__ == "__main__":
 		description='generate .tif and .gt.txt from input images',
 		epilog=f'{APP_NAME} v{VERSION} (C) powered by Que\'s C++ Studio'
 	)
-	arg_parser.add_argument("input_dir", help=".jpg or .png images input directory", nargs=1)
-	arg_parser.add_argument("output_dir", help=".tif and .gt.txt output directory", nargs=1)
+	arg_parser.add_argument("input_dir", help=".jpg or .png images input directory")
+	arg_parser.add_argument("output_dir", help=".tif and .gt.txt output directory")
 	arg_parser.add_argument("-n", "--dry-run", help="do not generate output file", action="store_true")
 	arg_parser.add_argument("-s", "--split", help="split image into single characters", action="store_true")
 	args = arg_parser.parse_args()
 
 	print(f'Welcome to {APP_NAME} v{VERSION} by Que\'s C++ Studio')
+	print(f'generation begin, {args.input_dir} -> {args.output_dir} ...')
 
-	input_dir = args.input_dir[0]
-	output_dir = args.output_dir[0]
-	split = args.split
-	dry_run = args.dry_run
-	print(f'generation begin, {input_dir} -> {output_dir} ...')
-
-	input_files = os.listdir(input_dir)
+	input_files = os.listdir(args.input_dir)
 	output_file_count = 0
 	for ifn in input_files:
-		with Image.open(os.path.join(input_dir, ifn)) as im:
+		with Image.open(os.path.join(args.input_dir, ifn)) as im:
 			# 根据文件名提取图片内容,格式为 <content>_xxx.jpeg
 			nm, ext = os.path.splitext(ifn)
 			content = nm.partition('_')[0]
@@ -102,15 +97,15 @@ if __name__ == "__main__":
 			im_gray = image_grayscale(im)
 			im_bin = image_binarization(im_gray)
 
-			if split:
+			if args.split:
 				for i, sub_im in enumerate(image_split(im_bin)):
 					ofn_tif = f'{nm}_{i}.tif'
-					if not dry_run:
-						sub_im.save(os.path.join(output_dir, ofn_tif))
+					if not args.dry_run:
+						sub_im.save(os.path.join(args.output_dir, ofn_tif))
 
 					ofn_gt_txt = f'{nm}_{i}.gt.txt'
-					if not dry_run:
-						with open(os.path.join(output_dir, ofn_gt_txt), "w", encoding='utf-8') as f:
+					if not args.dry_run:
+						with open(os.path.join(args.output_dir, ofn_gt_txt), "w", encoding='utf-8') as f:
 							f.write(content[i])
 
 					output_file_count += 1
@@ -118,14 +113,14 @@ if __name__ == "__main__":
 			else:
 				# 存为 tif 格式
 				ofn_tif = f'{nm}.tif'
-				if not dry_run:
-					im_bin.save(os.path.join(output_dir, ofn_tif))
+				if not args.dry_run:
+					im_bin.save(os.path.join(args.output_dir, ofn_tif))
 
 				# 生成 utf-8 编码的内容 .gt.txt 文件
 				ofn_gt_txt = f'{nm}.gt.txt'
 				ofn_tif = f'{nm}.tif'
-				if not dry_run:
-					with open(os.path.join(output_dir, ofn_gt_txt), "w", encoding='utf-8') as f:
+				if not args.dry_run:
+					with open(os.path.join(args.output_dir, ofn_gt_txt), "w", encoding='utf-8') as f:
 						f.write(content)
 				
 				output_file_count += 1
