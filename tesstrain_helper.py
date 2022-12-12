@@ -5,7 +5,7 @@ import os
 import os.path
 from PIL import Image
 
-APP_NAME = 'TessertrainHelper'
+APP_NAME = 'Tesstrain Helper'
 VERSION = '0.0.1'
 
 # 读入输入目录的图片,经过灰度,二值化后以 tif 格式写入输出目录
@@ -72,7 +72,7 @@ def image_split(im, blank_line_max_pixel=1, end_line_width=2):
 if __name__ == "__main__":
 	# commander line args
 	arg_parser = argparse.ArgumentParser(
-		prog=APP_NAME,
+		prog='tesstrain_helper.py',
 		description='generate .tif and .gt.txt from input images',
 		epilog=f'{APP_NAME} v{VERSION} (C) powered by Que\'s C++ Studio'
 	)
