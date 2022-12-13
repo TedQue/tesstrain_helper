@@ -6,7 +6,7 @@ import os.path
 from PIL import Image
 
 APP_NAME = 'Tesstrain Helper'
-VERSION = '0.0.1'
+VERSION = '0.0.2'
 
 # 读入输入目录的图片,经过灰度,二值化后以 tif 格式写入输出目录
 # 输入图片的文件名为图片内容,同时生成图片内容 .gt.txt 文件也写入输出目录

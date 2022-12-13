@@ -44,3 +44,8 @@ $make training MODEL_NAME=abc START_MODEL=eng TESSDATA=data/tessdata PSM=7
 实际应用中,验证码图片各式各样,如何做前期清洗非常见功力,除了通常的灰度化,二值化之外并无一定之规,不过关于如何处理验证码图片网上的文章较多,这里我提供一个 python 脚本实现上述步骤 2, 3 只实现简单清洗和字符切分,仅供参考.
 
 运行前把收集到的验证码图片(jpg 格式),按照步骤 3 人工标注后放在目录 input 中,另建立一个输出目录 output,然后运行 "tesstrain_helper.py -s input output" (选项 -s 可以控制是否切割为单个字符)即可得到用于训练模型的 .tif 和 .gt.txt 文件.
+
+附录2: update log
+2022.12.13
+1. 更新版本号,添加开发日志附录
+	-> v0.0.2
